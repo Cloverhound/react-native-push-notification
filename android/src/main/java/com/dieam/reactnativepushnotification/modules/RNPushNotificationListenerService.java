@@ -139,6 +139,7 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
                 wl.acquire(10000);
                 PowerManager.WakeLock wl_cpu = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"wcbVhc:wakeLogTag");
                 wl_cpu.acquire(10000);
+                wl.release();
             }
             Application applicationContext = (Application) context.getApplicationContext();
             RNPushNotificationHelper pushNotificationHelper = new RNPushNotificationHelper(applicationContext);
