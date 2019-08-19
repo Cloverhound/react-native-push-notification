@@ -31,7 +31,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class RNPushNotification extends ReactContextBaseJavaModule implements ActivityEventListener {
-    public static final String LOG_TAG = "RNPushNotification";// all logging should use this tag
+    public static final String LOG_TAG = "VHC: RNPushNotification";// all logging should use this tag
 
     private RNPushNotificationHelper mRNPushNotificationHelper;
     private final Random mRandomNumberGenerator = new Random(System.currentTimeMillis());

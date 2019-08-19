@@ -102,6 +102,27 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
         });
     }
 
+    @Override
+    public void onSendError (String msgId, Exception exception){
+        Log.v(LOG_TAG, "onSendError - " + "MsgID: " + msgId + ", " + exception);
+    }
+
+    @Override
+    public void onNewToken(String token) {
+        Log.v(LOG_TAG, "onNewToken: " + token);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.v(LOG_TAG, "onDestroy hit!" );
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDeletedMessages() {
+        Log.v(LOG_TAG, "onDeletedMessages hit!");
+    }
+
     private JSONObject getPushData(String dataString) {
         try {
             return new JSONObject(dataString);
