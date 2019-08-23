@@ -110,6 +110,9 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
     @Override
     public void onNewToken(String token) {
         Log.v(LOG_TAG, "onNewToken: " + token);
+        Intent intent = new Intent(this.getPackageName() + ".RNPushNotificationRegisteredToken");
+        intent.putExtra("token", token);
+        sendBroadcast(intent);
     }
 
     @Override
