@@ -13,6 +13,7 @@ import android.os.Looper;
 import android.os.PowerManager;
 import android.os.Build;
 import android.util.Log;
+import android.content.Intent;
 
 import com.dieam.reactnativepushnotification.helpers.ApplicationBadgeHelper;
 import com.facebook.react.ReactApplication;
