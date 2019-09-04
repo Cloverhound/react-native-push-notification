@@ -34,11 +34,13 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
     public void onMessageReceived(RemoteMessage message) {
         String from = message.getFrom();
         RemoteMessage.Notification remoteNotification = message.getNotification();
+        Log.v(LOG_TAG, "onMessageReceived message: " + message);
 
         final Bundle bundle = new Bundle();
         // Putting it from remoteNotification first so it can be overriden if message
         // data has it
         if (remoteNotification != null) {
+            Log.v(LOG_TAG, "onMessageReceived: remoteNotification != null" );
             // ^ It's null when message is from GCM
             bundle.putString("title", remoteNotification.getTitle());
             bundle.putString("message", remoteNotification.getBody());
@@ -73,7 +75,7 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
             }
         }
 
-        Log.v(LOG_TAG, "onMessageReceived: " + bundle);
+        Log.v(LOG_TAG, "onMessageReceived bundle: " + bundle);
 
         // We need to run this on the main thread, as the React code assumes that is true.
         // Namely, DevServerHelper constructs a Handler() without a Looper, which triggers:
@@ -137,6 +139,8 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
 
     private void handleRemotePushNotification(ReactApplicationContext context, Bundle bundle) {
 
+        Log.v(LOG_TAG, "sendNotification bundle: " + bundle);
+
         // If notification ID is not provided by the user for push notification, generate one at random
         if (bundle.getString("id") == null) {
             Random randomNumberGenerator = new Random(System.currentTimeMillis());
@@ -154,8 +158,7 @@ public class RNPushNotificationListenerService extends FirebaseMessagingService 
         if (bundle.getString("contentAvailable", "false").equalsIgnoreCase("true")) {
             jsDelivery.notifyRemoteFetch(bundle);
         }
-
-        Log.v(LOG_TAG, "sendNotification: " + bundle);
+        
         if (!isForeground) {
             PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
             boolean result= Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT_WATCH&&powerManager.isInteractive()|| Build.VERSION.SDK_INT< Build.VERSION_CODES.KITKAT_WATCH&&powerManager.isScreenOn();
